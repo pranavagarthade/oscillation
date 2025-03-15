@@ -57,6 +57,7 @@ const TeachersComponent = () => {
     }
   };
   
+  
   return (
     <div className="relative py-16 sm:py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 overflow-hidden font-['Montserrat',sans-serif]">
       {/* Background glow effect */}

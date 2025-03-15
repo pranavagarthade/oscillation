@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Faqs from './Faqs';
 
 const SponsorsComponent = () => {
   // Sample sponsors data - replace with your actual sponsors
