@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 const InteractiveBrochureDownload = ({ 
-  brochurePath = "/Oscillation 2k25 Brochure.pdf"
+  
+  brochurePath = './assets/Oscillation 2k25 Brochure.pdf',
+  onError = () => {handleDownloadError}
 }) => {
   const [animationState, setAnimationState] = useState("initial");
   const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState(false);
   
   // Animation sequence effect
   useEffect(() => {
@@ -17,10 +20,26 @@ const InteractiveBrochureDownload = ({
     }
   }, [isDownloading]);
   
-  const handleDownloadClick = () => {
-    setAnimationState("downloading");
-    setIsDownloading(true);
-    // Actual download happens via the anchor tag
+  const handleDownloadClick = (e) => {
+    // Check if the file exists before starting download animation
+    fetch(brochurePath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch file: ${response.status}`);
+        }
+        // File exists, proceed with download
+        setAnimationState("downloading");
+        setIsDownloading(true);
+        setDownloadError(false);
+        // The actual download will happen through the anchor tag
+      })
+      .catch(error => {
+        console.error("Error checking brochure availability:", error);
+        e.preventDefault(); // Prevent the default anchor behavior
+        setDownloadError(true);
+        setIsDownloading(false);
+        onError(error);
+      });
   };
 
   return (
@@ -148,7 +167,7 @@ const InteractiveBrochureDownload = ({
       {/* Download Button with interactive effects */}
       <a 
         href={brochurePath} 
-        download="Oscillation_2K25_Brochure.pdf"
+        download="Oscillation 2K25 Brochure.pdf"
         onClick={handleDownloadClick}
         className={`relative w-full bg-gradient-to-r from-purple-600 to-pink-400 text-white font-bold py-4 px-6 rounded-lg overflow-hidden block ${
           isDownloading ? 'pointer-events-none opacity-80' : 'hover:shadow-lg hover:shadow-purple-500/30'
@@ -182,6 +201,13 @@ const InteractiveBrochureDownload = ({
           <span>{isDownloading ? 'INITIALIZING...' : 'DOWNLOAD BROCHURE'}</span>
         </div>
       </a>
+      
+      {/* Error message for download failures */}
+      {downloadError && (
+        <div className="text-red-400 text-sm text-center mt-2 font-mono animate-pulse">
+          Error: Could not locate brochure file
+        </div>
+      )}
       
       {/* File details with tech-themed animation */}
       <div className="flex justify-center mt-2 text-xs text-gray-400 font-mono">
@@ -231,10 +257,25 @@ const InteractiveBrochureDownload = ({
 
 // Simplified page with just the brochure component
 const OscillationEventPage = () => {
+  const [errorMsg, setErrorMsg] = useState("");
+  
+  const handleDownloadError = (error) => {
+    console.error("Download error:", error);
+    setErrorMsg("Couldn't find the brochure file. Please check the file path.");
+  };
+  
   return (
     <div className="bg-slate-900 min-h-screen text-white p-4 flex items-center justify-center">
       <div className="max-w-md mx-auto w-full"> 
-        <InteractiveBrochureDownload brochurePath="/Oscillation 2k25 Brochure.pdf" />
+        <InteractiveBrochureDownload 
+          brochurePath="/public/files/Oscillation 2K25 Brochure.pdf" 
+          onError={handleDownloadError}
+        />
+        {errorMsg && (
+          <div className="mt-4 p-3 bg-red-900/30 border border-red-500 rounded-md text-red-300 text-sm">
+            {errorMsg}
+          </div>
+        )}
       </div>
     </div>
   );

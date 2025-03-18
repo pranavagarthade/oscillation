@@ -36,7 +36,7 @@ const Navbar = () => {
         <div className="flex h-full items-center justify-center">
           <nav className="text-center">
             <ul className="space-y-8">
-              {['Home', 'About', 'Timeline', 'HighLights', 'Sponsors', 'FAQS'].map((item, index) => (
+              {['Home', 'About', 'Events', 'HighLights', 'Sponsors', 'FAQS'].map((item, index) => (
                 <li 
                   key={index}
                   className={`transform transition-all duration-1000 ${
