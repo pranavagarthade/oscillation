@@ -24,19 +24,19 @@ const TeachersComponent = () => {
   // Teacher data
   const teachers = [
     {
+      name: "Dr. Suwarna Bhise",
+      role: "Head Of IETE",
+      imageSrc: suvarnamam // Replace with actual image path
+    },
+    {
       name: "Dr. Sailakshmi Parvathi",
-      role: "Teacher",
+      role: "Head Of Department",
       imageSrc: hodImage // Replace with actual image path
     },
     {
-      name: "Dr. Alam Shaikh",
-      role: "Principle",
+      name: "Dr. Alam Shaikh ",
+      role: "Principal",
       imageSrc: principal // Replace with actual image path
-    },
-    {
-      name: "Dr. Suwarna Bhise",
-      role: "Teacher",
-      imageSrc: suvarnamam // Replace with actual image path
     }
   ];
   

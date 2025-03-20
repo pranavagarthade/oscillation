@@ -247,7 +247,7 @@ const App = () => {
       description: "Test your knowledge of technology, programming, and computer science history.",
       icon: "fas fa-question-circle",
       image: dumbcharades,
-      registrationLink: "https://forms.google.com/your-quiz-form",
+      registrationLink: "https://forms.gle/mEgy3na9CngqqKFw5",
       coordinators: [
         { 
           name: "Aryan Saxena", 
@@ -303,7 +303,7 @@ const App = () => {
       description: "Test your knowledge of technology, programming, and computer science history.",
       icon: "fas fa-question-circle",
       image: ludo,
-      registrationLink: "https://forms.google.com/your-quiz-form",
+      registrationLink: "https://forms.gle/oSL8hcTSMNp3JHkR9",
       coordinators: [
         { 
           name: "Aryan Saxena", 

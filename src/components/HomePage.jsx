@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import TeachersComponent from './TeachersComponent';
@@ -218,6 +216,12 @@ const HomePage = () => {
                     transition={{ duration: 0.8, delay: 0.3 }}
                   >
                     <img 
+                      src={logo_white}
+                      alt="IETE Logo"
+                      lassName="w-14 h-14 object-contain"
+                    />
+                      
+                    <img 
                       src={logo_white} 
                       alt="Company Logo" 
                       className="w-14 h-14 object-contain" // Reduced from w-16 h-16 to w-14 h-14
@@ -231,6 +235,18 @@ const HomePage = () => {
                   
                   <div className="flex justify-center items-center">
                     {/* Company Logo - Hidden on mobile with responsive classes */}
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="mr-6 hidden sm:block" // Hide on mobile, show on sm screens and up
+                    >
+                      <img 
+                        src={logo_white} 
+                        alt="Company Logo" 
+                        className="w-24 h-24 object-contain" 
+                      />
+                    </motion.div>
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
