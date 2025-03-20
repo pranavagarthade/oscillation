@@ -100,14 +100,14 @@ const OscillationFooter = () => {
               tech enthusiasts to learn, compete, and innovate.
             </p>
 
-            <div className="flex items-center flex-row gap-2 mt-4">
+            <div className="flex items-center flex-row gap-2 mt-4 group cursor-pointer transition-all duration-300 hover:translate-x-1">
               <img src={insta} alt="Instagram" className="w-6 h-6 transition-all duration-300 group-hover:scale-110" />
-              <div className="cursor-pointer hover:text-pink-500" onClick={() => window.open('https://www.instagram.com/oscillation_2025')}>@oscillation_2025</div>
+              <div className="cursor-pointer hover:text-pink-500 transition-colors duration-300" onClick={() => window.open('https://www.instagram.com/oscillation_2025')}>@oscillation_2025</div>
             </div>
 
-            <div className="flex items-center flex-row gap-2 mt-4">
+            <div className="flex items-center flex-row gap-2 mt-4 group cursor-pointer transition-all duration-300 hover:translate-x-1">
               <img src={insta} alt="Instagram" className="w-6 h-6 transition-all duration-300 group-hover:scale-110" />
-              <div className="cursor-pointer hover:text-pink-500" onClick={() => window.open('https://www.instagram.com/aisac_vppcoe')}>@aisac_vppcoe</div>
+              <div className="cursor-pointer hover:text-pink-500 transition-colors duration-300" onClick={() => window.open('https://www.instagram.com/aisac_vppcoe')}>@aisac_vppcoe</div>
             </div>
           </div>
 

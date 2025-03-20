@@ -25,7 +25,7 @@ const TeachersComponent = () => {
   const teachers = [
     {
       name: "Dr. Suwarna Bhise",
-      role: "Head Of IETE",
+      role: "ISF Staff Co-Ordinator",
       imageSrc: suvarnamam // Replace with actual image path
     },
     {

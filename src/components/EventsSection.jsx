@@ -19,7 +19,7 @@ const App = () => {
     {
       id: "hugsAndBugs",
       title: "Code Relay 2.0",
-      description: "Debug challenging code and solve complex programming puzzles in this exciting competition.",
+      description: "Compete in a thrilling relay-style coding challenge where teams debug and solve coding puzzles under pressure.",
       icon: "fas fa-bug",
       image: coderelay2,
       registrationLink: "https://forms.gle/dsuTCD5K9r3Jt7T19",
@@ -50,7 +50,7 @@ const App = () => {
       description: "24-hour coding marathon to build innovative solutions for real-world problems.",
       icon: "fas fa-laptop-code",
       image: hack,
-      registrationLink: "https://forms.google.com/your-hackathon-form",
+      registrationLink: "https://unstop.com/o/qOCVa2f?lb=8WkQgyPl&utm_medium=Share&utm_source=shortUrl",
       coordinators: [
         { 
           name: "Raj Sharma", 
@@ -75,7 +75,7 @@ const App = () => {
     {
       id: "chess",
       title: "Valorant",
-      description: "Strategic battle of minds in this classic game of chess.",
+      description: "Form a team, strategize, and showcase your tactical skills in this high-stakes Valorant battle.",
       icon: "fas fa-chess",
       image: valo,
       registrationLink: "https://forms.gle/neyAbdGGuNa7BKHg8",
@@ -160,7 +160,7 @@ const App = () => {
     {
       id: "webDevContest",
       title: "BGMI",
-      description: "Create stunning websites with modern technologies in this development challenge.",
+      description: "Battle it out in this fast-paced BGMI showdown where strategy and precision determine the winner.",
       icon: "fas fa-code",
       image: bgmi,
       registrationLink: "https://forms.gle/jLp2Z7BC4fPhYddy9",
@@ -188,7 +188,7 @@ const App = () => {
     {
       id: "botBattle",
       title: "Carrom Clash",
-      description: "Design and code your own bot to compete in various challenges and games.",
+      description: "Sharpen your aim and strategy in this exciting game of carrom where precision meets skill.",
       icon: "fas fa-robot",
       image: carrom,
       registrationLink: "https://forms.google.com/your-botbattle-form",
@@ -216,7 +216,7 @@ const App = () => {
     {
       id: "quizNight",
       title: "Code and Pray",
-      description: "Test your knowledge of technology, programming, and computer science history.",
+      description: "Put your coding instincts to the test as you write without sight—only faith in your skills will guide you to victory.",
       icon: "fas fa-question-circle",
       image: codeandpray,
       registrationLink: "https://forms.google.com/your-quiz-form",
@@ -244,7 +244,7 @@ const App = () => {
     {
       id: "quizNight",
       title: "Dumb Charades",
-      description: "Test your knowledge of technology, programming, and computer science history.",
+      description: "Unleash your acting skills in this classic game where gestures speak louder than words.",
       icon: "fas fa-question-circle",
       image: dumbcharades,
       registrationLink: "https://forms.gle/mEgy3na9CngqqKFw5",
@@ -272,7 +272,7 @@ const App = () => {
     {
       id: "quizNight",
       title: "AI Visionary",
-      description: "Test your knowledge of technology, programming, and computer science history.",
+      description: "Dive into the future with AI-driven challenges that test your technical foresight.",
       icon: "fas fa-question-circle",
       image: aivisionary,
       registrationLink: "https://forms.gle/kscpDreUV9N8EK4cA",
@@ -300,7 +300,7 @@ const App = () => {
     {
       id: "quizNight",
       title: "Ludo",
-      description: "Test your knowledge of technology, programming, and computer science history.",
+      description: "Combine strategy and luck in this engaging digital Ludo challenge.",
       icon: "fas fa-question-circle",
       image: ludo,
       registrationLink: "https://forms.gle/oSL8hcTSMNp3JHkR9",
