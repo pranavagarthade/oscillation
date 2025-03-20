@@ -1,14 +1,19 @@
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import TeachersComponent from './TeachersComponent';
 import logo_white from '../assets/logo_white.png';
 import oscillation_logo from '../assets/oscillation_logo.png';
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const canvasRef = useRef(null);
   const textRef = useRef(null);
+  
+  // Function to navigate to events page
+  const navigateToEvents = () => {
+    navigate('/events');
+  };
   
   // Particles animation - optimized for mobile
   useEffect(() => {
@@ -376,17 +381,18 @@ const HomePage = () => {
                         <div className="bg-black/30 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-pink-500/20 shadow-lg shadow-pink-500/10 w-full mb-6 sm:mb-0">
                           <h3 className="text-lg sm:text-xl font-bold text-pink-300 mb-4 sm:mb-6 text-center" style={{ fontFamily: "'Rajdhani', sans-serif" }}>JOIN THE EXPERIENCE</h3>
                           
+                          {/* Updated EXPLORE EVENTS button with onClick handler */}
                           <motion.button 
                             className="px-6 sm:px-8 py-3 sm:py-4 mb-3 sm:mb-4 bg-gradient-to-r from-pink-600 to-pink-500 rounded-full text-white font-semibold shadow-lg hover:shadow-pink-500/40 active:shadow-pink-500/40 hover:-translate-y-1 active:-translate-y-1 transition-all duration-300 w-full text-sm sm:text-base"
                             whileHover={{ 
                               scale: 1.05, 
                               boxShadow: "0 0 15px rgba(236, 72, 153, 0.7)"
                             }}
-                            // Add touch support for mobile
                             whileTap={{ 
                               scale: 0.95,
                               boxShadow: "0 0 15px rgba(236, 72, 153, 0.7)"
                             }}
+                            onClick={navigateToEvents}
                             style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: "0.1em" }}
                           >
                             EXPLORE EVENTS
@@ -398,7 +404,6 @@ const HomePage = () => {
                               scale: 1.05,
                               boxShadow: "0 0 15px rgba(236, 72, 153, 0.7)"
                             }}
-                            // Add touch support for mobile
                             whileTap={{ 
                               scale: 0.95,
                               boxShadow: "0 0 15px rgba(236, 72, 153, 0.7)"

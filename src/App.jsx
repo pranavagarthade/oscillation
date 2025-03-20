@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import HomePage from './components/HomePage';
 import SponsorsComponent from './components/SponsorsComponent ';
@@ -8,20 +9,33 @@ import OscillationEventPage from './components/OscillationEventPage';
 import OscillationFooter from './components/OscillationFooter';
 
 
+const Home = () => {
+  return (
+    <>
+      <HomePage />
+      <Faqs />
+      <SponsorsComponent />
+      <OscillationEventPage />
+    </>
+  );
+};
+
 const App = () => {
   return (
-    <div>
+    <Router>
+      <div>
         <Navbar />
-        <HomePage />
-        <EventsSection />
-        {/* <TeachersComponent /> */}
-        <Faqs />
-        <SponsorsComponent />
-        <OscillationEventPage />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/events" element={<EventsSection />} />
+          <Route path="/faqs" element={<Faqs />} />
+          <Route path="/sponsors" element={<SponsorsComponent />} />
+        </Routes>
         <OscillationFooter />
-        
-    </div>
-  )
-}
+      </div>
+    </Router>
+  );
+};
+
 
 export default App

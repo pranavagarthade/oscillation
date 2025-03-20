@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     console.log("Toggle clicked, isOpen:", !isOpen);
     setIsOpen(!isOpen);
+  };
+
+  const handleNavigation = (path) => {
+    setIsOpen(false);
+    navigate(path);
   };
 
   return (
@@ -36,7 +43,13 @@ const Navbar = () => {
         <div className="flex h-full items-center justify-center">
           <nav className="text-center">
             <ul className="space-y-8">
-              {['Home', 'About', 'Events', 'HighLights', 'Sponsors', 'FAQS'].map((item, index) => (
+              {[
+                { name: 'Home', path: '/' },
+                { name: 'Events', path: '/events' },
+                { name: 'HighLights', path: '/highlights' },
+                { name: 'Sponsors', path: '/sponsors' },
+                { name: 'FAQS', path: '/faqs' }
+              ].map((item, index) => (
                 <li 
                   key={index}
                   className={`transform transition-all duration-1000 ${
@@ -44,13 +57,12 @@ const Navbar = () => {
                   }`}
                   style={{ transitionDelay: `${isOpen ? index * 100 : 0}ms` }}
                 >
-                  <a 
-                    href={`#${item.toLowerCase()}`} 
+                  <button 
                     className="text-4xl md:text-5xl font-bold text-white hover:text-indigo-300 transition-colors"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => handleNavigation(item.path)}
                   >
-                    {item}
-                  </a>
+                    {item.name}
+                  </button>
                 </li>
               ))}
             </ul>
