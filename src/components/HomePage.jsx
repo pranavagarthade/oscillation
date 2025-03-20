@@ -314,10 +314,13 @@ const HomePage = () => {
                     transition={{ duration: 0.8, delay: 0.5 }}
                     className="mt-2 sm:mt-8" // Reduced from mt-4 to mt-2 on mobile
                   >
+
                     <motion.span 
                       className="text-xl sm:text-2xl font-light tracking-widest text-pink-400 inline-block mb-2 sm:mb-6" // Reduced mb-4 to mb-2 on mobile
                       style={{ fontFamily: "'Rajdhani', sans-serif" }}
                     >
+                      Artificial Intelligence and Data Science
+                      <br></br>
                       2K25
                     </motion.span>
                     

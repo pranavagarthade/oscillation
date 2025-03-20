@@ -1,7 +1,9 @@
-
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+
+import hodImage from '..//assets/HOD_MAM_IMAGE-removebg-preview.png';
+import suvarnamam from '..//assets/image-removebg-preview.png';
+import principal from '..//assets/Principal_Sir-removebg-preview.png';
 
 const TeachersComponent = () => {
   const containerRef = useRef(null);
@@ -22,19 +24,19 @@ const TeachersComponent = () => {
   // Teacher data
   const teachers = [
     {
-      name: "Prof. Sailakshmi Parvathi",
+      name: "Dr. Sailakshmi Parvathi",
       role: "Teacher",
-      imageSrc: "/placeholder-teacher-1.jpg" // Replace with actual image path
+      imageSrc: hodImage // Replace with actual image path
     },
     {
-      name: "Alan Shaikh",
-      role: "Teacher",
-      imageSrc: "/placeholder-teacher-2.jpg" // Replace with actual image path
+      name: "Dr. Alam Shaikh",
+      role: "Principle",
+      imageSrc: principal // Replace with actual image path
     },
     {
-      name: "Suwarna Bhise",
-      role: "Principal",
-      imageSrc: "/placeholder-teacher-3.jpg" // Replace with actual image path
+      name: "Dr. Suwarna Bhise",
+      role: "Teacher",
+      imageSrc: suvarnamam // Replace with actual image path
     }
   ];
   
@@ -162,10 +164,10 @@ const TeachersComponent = () => {
             >
               {/* Teacher Image with Overlay Effect */}
               <div className="relative h-64 w-full overflow-hidden">
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-t from-purple-900 to-transparent opacity-50 z-10"
-                  whileHover={{ opacity: 0.3 }}
-                />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-t from-purple-900 to-transparent opacity-0 z-10"
+                whileHover={{ opacity: 0.05 }}
+              />
                 <motion.div
                   className="h-full w-full bg-gray-300"
                   whileHover={{ scale: 1.1 }}
@@ -177,7 +179,7 @@ const TeachersComponent = () => {
                   }}
                 >
                   {/* Fallback for image loading issues */}
-                  <div className="h-full w-full bg-gradient-to-br from-purple-900 via-pink-800 to-purple-800 opacity-70" />
+                  {/* <div className="h-full w-full bg-gradient-to-br from-purple-900 via-pink-800 to-purple-800 opacity-70" /> */}
                 </motion.div>
                 
                 {/* Circular glow effect */}

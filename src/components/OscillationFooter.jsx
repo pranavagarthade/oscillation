@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import emailjs from '@emailjs/browser';
+import EmailForm from './EmailForm';
 
 const OscillationFooter = () => {
   const [windowWidth, setWindowWidth] = useState(0);
@@ -228,21 +230,13 @@ const OscillationFooter = () => {
           </div>
           
           <div className="p-4 relative group transition-all duration-300 hover:bg-white/5 rounded-lg">
-            <h3 className="text-xl mb-5 relative inline-block title-underline font-semibold">Stay Updated</h3>
-            <p className="mb-4 text-gray-200">Subscribe to our newsletter for the latest updates on events, speakers, and opportunities.</p>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 mt-4">
-              <input 
-                type="email" 
-                placeholder="Your email" 
-                className="px-4 py-2 bg-white bg-opacity-10 text-white rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-pink-500 placeholder-gray-400"
-              />
-              <button className="px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-400 text-white rounded-lg sm:rounded-l-none sm:rounded-r-lg transition-all duration-300 hover:from-orange-400 hover:to-pink-500 active:scale-95">
-                Subscribe
-              </button>
+            <h3 className="text-xl mb-5 relative inline-block title-underline font-semibold">And Doubts We Didnt Answer?</h3>
+            <p className="mb-4 text-gray-200">How About Emailing Us! We Will get to You ASAP!</p>
+            <EmailForm />
+
             </div>
           </div>
         </div>
-      </div>
       
       {/* Bottom copyright section - improved spacing for mobile */}
       <div className="text-center pt-8 border-t border-white border-opacity-10 mt-8 w-full">
