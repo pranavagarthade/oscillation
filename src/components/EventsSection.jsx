@@ -17,6 +17,36 @@ const App = () => {
   // Events data with unique coordinators for each event
   const events = [
     {
+      id: "hackathon",
+      title: "Hackathon",
+      description: "24-hour coding marathon to build innovative solutions for real-world problems.",
+      icon: "fas fa-laptop-code",
+      image: hack,
+      registrationLink: "https://forms.google.com/your-hackathon-form",
+      featured: true,
+      eventDate: "2025-04-15T09:00:00", // Set your hackathon date here
+      coordinators: [
+        { 
+          name: "Raj Sharma", 
+          role: "Lead Coordinator", 
+          image: "/api/placeholder/150/150",
+          email: "raj@gmail.com"
+        },
+        { 
+          name: "Priya Patel", 
+          role: "Technical Support", 
+          image: "/api/placeholder/150/150",
+          email: "priya@gmail.com" 
+        },
+        { 
+          name: "Arjun Mehta", 
+          role: "Event Manager", 
+          image: "/api/placeholder/150/150",
+          email: "arjun@gmail.com" 
+        }
+      ]
+    },
+    {
       id: "hugsAndBugs",
       title: "Code Relay 2.0",
       description: "Debug challenging code and solve complex programming puzzles in this exciting competition.",
@@ -44,34 +74,7 @@ const App = () => {
         }
       ]
     },
-    {
-      id: "hackathon",
-      title: "Hackathon",
-      description: "24-hour coding marathon to build innovative solutions for real-world problems.",
-      icon: "fas fa-laptop-code",
-      image: hack,
-      registrationLink: "https://forms.google.com/your-hackathon-form",
-      coordinators: [
-        { 
-          name: "Raj Sharma", 
-          role: "Lead Coordinator", 
-          image: "/api/placeholder/150/150",
-          email: "raj@gmail.com"
-        },
-        { 
-          name: "Priya Patel", 
-          role: "Technical Support", 
-          image: "/api/placeholder/150/150",
-          email: "priya@gmail.com" 
-        },
-        { 
-          name: "Arjun Mehta", 
-          role: "Event Manager", 
-          image: "/api/placeholder/150/150",
-          email: "arjun@gmail.com" 
-        }
-      ]
-    },
+    
     {
       id: "chess",
       title: "Valorant",
@@ -214,7 +217,7 @@ const App = () => {
       ]
     },
     {
-      id: "quizNight",
+      id: "Code and Pray",
       title: "Code and Pray",
       description: "Test your knowledge of technology, programming, and computer science history.",
       icon: "fas fa-question-circle",
@@ -241,8 +244,9 @@ const App = () => {
         }
       ]
     },
+    
     {
-      id: "quizNight",
+      id: "Dumb Charades",
       title: "Dumb Charades",
       description: "Test your knowledge of technology, programming, and computer science history.",
       icon: "fas fa-question-circle",
@@ -267,10 +271,13 @@ const App = () => {
           image: "/api/placeholder/150/150",
           email: "kunal@gmail.com" 
         }
+
       ]
+      
     },
-    {
-      id: "quizNight",
+
+{
+      id: "aiv",
       title: "AI Visionary",
       description: "Test your knowledge of technology, programming, and computer science history.",
       icon: "fas fa-question-circle",
@@ -325,15 +332,42 @@ const App = () => {
         }
       ]
     }
-
+   
   ];
-
-  
 
   // State for hovering effect and showing event details
   const [hoveredEvent, setHoveredEvent] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEventDetails, setShowEventDetails] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({});
+
+  // Calculate time left for hackathon
+  useEffect(() => {
+    const hackathonEvent = events.find(event => event.id === "hackathon");
+    if (!hackathonEvent || !hackathonEvent.eventDate) return;
+
+    const calculateTimeLeft = () => {
+      const difference = new Date(hackathonEvent.eventDate) - new Date();
+      
+      if (difference > 0) {
+        return {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
+        };
+      }
+      return null;
+    };
+
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    setTimeLeft(calculateTimeLeft());
+    
+    return () => clearInterval(timer);
+  }, [events]);
 
   // Handle click to show event details
   const handleEventClick = (eventId) => {
@@ -369,13 +403,15 @@ const App = () => {
           events={events} 
           hoveredEvent={hoveredEvent} 
           setHoveredEvent={setHoveredEvent} 
-          handleEventClick={handleEventClick} 
+          handleEventClick={handleEventClick}
+          timeLeft={timeLeft}
         />
       ) : (
         <EventDetailsPage 
           eventId={selectedEvent} 
           events={events}
           handleBackClick={handleBackClick} 
+          timeLeft={selectedEvent === "hackathon" ? timeLeft : null}
         />
       )}
     </div>
@@ -383,12 +419,33 @@ const App = () => {
 };
 
 // Events Section Component
-const EventsSection = ({ events, hoveredEvent, setHoveredEvent, handleEventClick }) => {
-  return (
+const EventsSection = ({ events, hoveredEvent, setHoveredEvent, handleEventClick, timeLeft }) => {
+  // Find the hackathon event
+  const hackathonEvent = events.find(event => event.id === "hackathon");
+  // Filter out the hackathon to display separately
+  const regularEvents = events.filter(event => event.id !== "hackathon");
 
-<section id="events" data-name="events-section" className="py-20 bg-slate-900 relative overflow-hidden">
-{/* Advanced Realistic AI/Robotics Background */}
-<div className="absolute inset-0 overflow-hidden">
+  // Countdown display component
+  const CountdownDisplay = ({ timeData }) => {
+    if (!timeData) return <div className="text-yellow-300 font-bold">Event coming soon!</div>;
+    
+    return (
+      <div className="grid grid-cols-4 gap-2 mt-3">
+        {Object.entries(timeData).map(([unit, value]) => (
+          <div key={unit} className="flex flex-col items-center">
+            <div className="bg-purple-700 text-white px-2 py-1 rounded-md text-lg font-bold w-12 text-center">
+              {value}
+            </div>
+            <div className="text-xs text-gray-300 uppercase mt-1">{unit}</div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <section id="hackathonEvents" data-name="events-section" className="py-20 bg-slate-900 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
   {/* Particle Network Effect */}
   <div className="absolute inset-0">
     <div className="particles-container absolute inset-0" style={{
@@ -644,95 +701,192 @@ const EventsSection = ({ events, hoveredEvent, setHoveredEvent, handleEventClick
          </svg>
        </div>
      </div>
-     
-     {/* Content Container */}
-     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-       <div className="text-center mb-12">
-         <h2 data-name="events-title" className="text-4xl font-bold text-white mb-4">
-           Featured Events
-         </h2>
-         <p data-name="events-subtitle" className="text-gray-300">
-           Participate in our exciting events and showcase your skills
-         </p>
-       </div>
-       
-       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-         {events.map((event, index) => (
-           <div 
-             key={event.id} 
-             className="relative overflow-hidden rounded-lg transition-all duration-300 transform" 
-             style={{ 
-               transform: hoveredEvent === event.id ? 'scale(1.03)' : 'scale(1)',
-             }}
-             onMouseEnter={() => setHoveredEvent(event.id)}
-             onMouseLeave={() => setHoveredEvent(null)}
-           >
-             {/* Background Image with Overlay */}
-             <div className="absolute inset-0 w-full h-full">
-               <img 
-                 src={event.image} 
-                 alt={`${event.title} background`}
-                 className="w-full h-full object-cover object-center"
-               />
-               <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 to-purple-800/90"></div>
-               
-               {/* Hover Overlay */}
-               <div className={`absolute inset-0 bg-gradient-to-tr from-green-500/20 to-purple-600/20 transition-opacity duration-300 ${
-                 hoveredEvent === event.id ? 'opacity-100' : 'opacity-0'
-               }`}></div>
-             </div>
-             
-             {/* Card Content */}
-             <div data-name="event-card" className="event-card p-6 relative z-10">
-               <div data-name="event-icon" className="text-purple-400 text-4xl mb-4">
-                 <i className={event.icon}></i>
-               </div>
-               <h3 data-name="event-title" className="text-xl font-semibold text-white mb-2">
-                 {event.title}
-               </h3>
-               <p data-name="event-description" className="text-gray-300">
-                 {event.description}
-               </p>
-               
-               {/* Buttons that appear on hover - Also shown on mobile (no hover) */}
-               <div className={`transition-all duration-300 mt-4 flex space-x-3 sm:${
-                 hoveredEvent === event.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-               } opacity-100 sm:flex-row flex-col sm:space-x-3 sm:space-y-0 space-y-2`}>
-                 <button 
-                   data-name="event-details-button" 
-                   className="relative overflow-hidden bg-white text-gray-800 py-2 px-5 rounded-md transition-all duration-300 flex items-center justify-center group"
-                   onClick={() => handleEventClick(event.id)}
-                 >
-                   <span className="relative z-10 font-medium">Details</span>
-                   <span className="absolute bottom-0 left-0 w-full h-1 bg-purple-500 transition-all duration-300 group-hover:h-full group-hover:opacity-20"></span>
-                   <span className="absolute bottom-0 left-0 w-0 h-1 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
-                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                   </svg>
-                 </button>
-                 <a 
-                   href={event.registrationLink} 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   data-name="event-register-button" 
-                   className="relative overflow-hidden bg-white text-gray-800 py-2 px-5 rounded-md transition-all duration-300 flex items-center justify-center group"
-                 >
-                   <span className="relative z-10 font-medium">Register</span>
-                   <span className="absolute bottom-0 left-0 w-full h-1 bg-green-500 transition-all duration-300 group-hover:h-full group-hover:opacity-20"></span>
-                   <span className="absolute bottom-0 left-0 w-0 h-1 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
-                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                   </svg>
-                 </a>
-               </div>
-             </div>
-           </div>
-         ))}
-       </div>
-     </div>
-   </section>
- );
-}
+
+
+
+      {/* Content Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-12">
+          <h2 data-name="events-title" className="text-4xl font-bold text-white mb-4">
+            Featured Events
+          </h2>
+          <p data-name="events-subtitle" className="text-gray-300">
+            Participate in our exciting events and showcase your skills
+          </p>
+        </div>
+        
+        {/* Featured Hackathon Event - Special Display */}
+        {hackathonEvent && (
+          <div className="mb-12 relative">
+            <div className="absolute -inset-1">
+              <div className="w-full h-full mx-auto bg-gradient-to-r from-purple-600 to-cyan-500 opacity-30 blur-lg"></div>
+            </div>
+            <div 
+              className="relative overflow-hidden rounded-lg shadow-2xl transition-all duration-300 transform bg-gradient-to-br from-slate-800 to-slate-900 border border-purple-500"
+              style={{ 
+                transform: hoveredEvent === hackathonEvent.id ? 'scale(1.01)' : 'scale(1)',
+              }}
+              onMouseEnter={() => setHoveredEvent(hackathonEvent.id)}
+              onMouseLeave={() => setHoveredEvent(null)}
+            >
+              <div className="lg:flex">
+                {/* Background Image with Overlay */}
+                <div className="lg:w-1/2 relative">
+                  <div className="absolute inset-0 w-full h-full">
+                    <img 
+                      src={hackathonEvent.image} 
+                      alt={`${hackathonEvent.title} background`}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/80 to-blue-900/80"></div>
+                    
+                    {/* Hover Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-purple-600/30 transition-opacity duration-300 ${
+                      hoveredEvent === hackathonEvent.id ? 'opacity-100' : 'opacity-0'
+                    }`}></div>
+                  </div>
+                  
+                  {/* Hackathon Badge */}
+                  <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                    FLAGSHIP EVENT
+                  </div>
+                </div>
+                
+                {/* Card Content */}
+                <div data-name="hackathon-content" className="lg:w-1/2 p-8 relative z-10">
+                  <div className="flex items-center mb-4">
+                    <div data-name="hackathon-icon" className="text-purple-400 text-4xl mr-4">
+                      <i className={hackathonEvent.icon}></i>
+                    </div>
+                    <h3 data-name="hackathon-title" className="text-3xl font-bold text-white">
+                      {hackathonEvent.title}
+                    </h3>
+                  </div>
+                  
+                  <p data-name="hackathon-description" className="text-gray-300 text-lg mb-6">
+                    {hackathonEvent.description}
+                  </p>
+                  
+                  {/* Countdown Timer */}
+                  <div className="mb-6">
+                    <h4 className="text-xl font-semibold text-white mb-2 flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Time Remaining
+                    </h4>
+                    <CountdownDisplay timeData={timeLeft} />
+                  </div>
+                  
+                  {/* Buttons */}
+                  <div className="flex space-x-4">
+                    <button 
+                      data-name="hackathon-details-button" 
+                      className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-purple-800 text-white py-3 px-6 rounded-md transition-all duration-300 flex items-center justify-center group hover:shadow-lg"
+                      onClick={() => handleEventClick(hackathonEvent.id)}
+                    >
+                      <span className="relative z-10 font-medium">View Details</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                    <a 
+                      href={hackathonEvent.registrationLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      data-name="hackathon-register-button" 
+                      className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 px-6 rounded-md transition-all duration-300 flex items-center justify-center group hover:shadow-lg"
+                    >
+                      <span className="relative z-10 font-medium">Register Now</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Regular Events Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {regularEvents.map((event) => (
+            <div 
+              key={event.id} 
+              className="relative overflow-hidden rounded-lg transition-all duration-300 transform" 
+              style={{ 
+                transform: hoveredEvent === event.id ? 'scale(1.03)' : 'scale(1)',
+              }}
+              onMouseEnter={() => setHoveredEvent(event.id)}
+              onMouseLeave={() => setHoveredEvent(null)}
+            >
+              {/* Background Image with Overlay */}
+              <div className="absolute inset-0 w-full h-full">
+                <img 
+                  src={event.image} 
+                  alt={`${event.title} background`}
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-purple-800/90"></div>
+                
+                {/* Hover Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-tr from-green-500/20 to-purple-600/20 transition-opacity duration-300 ${
+                  hoveredEvent === event.id ? 'opacity-100' : 'opacity-0'
+                }`}></div>
+              </div>
+              
+              {/* Card Content */}
+              <div data-name="event-card" className="event-card p-6 relative z-10">
+                <div data-name="event-icon" className="text-purple-400 text-4xl mb-4">
+                  <i className={event.icon}></i>
+                </div>
+                <h3 data-name="event-title" className="text-xl font-semibold text-white-800 mb-2">
+                  {event.title}
+                </h3>
+                <p data-name="event-description" className="text-white-300">
+                  {event.description}
+                </p>
+                
+                {/* Buttons that appear on hover - Also shown on mobile (no hover) */}
+                <div className={`transition-all duration-300 mt-4 flex space-x-3 sm:${
+                  hoveredEvent === event.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                } opacity-100 sm:flex-row flex-col sm:space-x-3 sm:space-y-0 space-y-2`}>
+                  <button 
+                    data-name="event-details-button" 
+                    className="relative overflow-hidden bg-white text-gray-800 py-2 px-5 rounded-md transition-all duration-300 flex items-center justify-center group"
+                    onClick={() => handleEventClick(event.id)}
+                  >
+                    <span className="relative z-10 font-medium">Details</span>
+                    <span className="absolute bottom-0 left-0 w-full h-1 bg-purple-500 transition-all duration-300 group-hover:h-full group-hover:opacity-20"></span>
+                    <span className="absolute bottom-0 left-0 w-0 h-1 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </button>
+                  <a 
+                    href={event.registrationLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    data-name="event-register-button" 
+                    className="relative overflow-hidden bg-white text-gray-800 py-2 px-5 rounded-md transition-all duration-300 flex items-center justify-center group"
+                  >
+                    <span className="relative z-10 font-medium">Register</span>
+                    <span className="absolute bottom-0 left-0 w-full h-1 bg-green-500 transition-all duration-300 group-hover:h-full group-hover:opacity-20"></span>
+                    <span className="absolute bottom-0 left-0 w-0 h-1 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 // Event Details Page Component - Updated to show event-specific coordinators
 const EventDetailsPage = ({ eventId, events, handleBackClick }) => {

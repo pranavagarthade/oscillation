@@ -112,7 +112,7 @@ const HomePage = () => {
     };
   }, []);
 
-  // Text letter animation
+  // Improved text letter animation with sequential pattern
   const title = "OSCILLATION";
   const letterVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -122,9 +122,11 @@ const HomePage = () => {
       transition: {
         delay: i * 0.1,
         duration: 0.5,
+        // Create a more organized wave effect instead of random animation
         repeat: Infinity,
         repeatType: "reverse",
-        repeatDelay: 5 + i * 0.2,
+        // Use a sequential pattern based on letter position
+        repeatDelay: 2 + Math.sin(i * 0.8) * 1.5,
       }
     }),
     hover: {
@@ -133,6 +135,34 @@ const HomePage = () => {
       color: "#ff69b4",
       transition: { duration: 0.2 }
     }
+  };
+
+  // AI & Data Science text animation variants
+  const aiTextVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        delay: 0.2
+      }
+    }
+  };
+  
+  // Individual letter animation for AI & Data Science
+  const aiLetterVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: (i) => ({
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: i * 0.03,
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    })
   };
 
   // Creative wave effect for text - works for both mouse and touch
@@ -266,7 +296,7 @@ const HomePage = () => {
                             backgroundClip: 'text',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
-                            filter: `hue-rotate(${i * 10}deg)`,
+                            filter: `hue-rotate(${i * 8}deg)`,
                             transformOrigin: 'center',
                             fontFamily: "'Orbitron', sans-serif"
                           }}
@@ -314,12 +344,47 @@ const HomePage = () => {
                     transition={{ duration: 0.8, delay: 0.5 }}
                     className="mt-2 sm:mt-8" // Reduced from mt-4 to mt-2 on mobile
                   >
+                    {/* Add animated AI & Data Science text above 2K25 */}
+                    <motion.div
+                      initial="hidden"
+                      animate="visible"
+                      variants={aiTextVariants}
+                      className="mb-0 sm:mb-2"
+                    >
+                      {/* Use gradient text with animated appearance for each letter */}
+                      <div className="inline-block">
+                        {"ARTIFICIAL INTELLIGENCE & DATA SCIENCE".split('').map((letter, i) => (
+                          <motion.span
+                            key={i}
+                            custom={i}
+                            initial="hidden"
+                            animate="visible"
+                            variants={aiLetterVariants}
+                            className="inline-block"
+                            style={{ 
+                              backgroundImage: 'linear-gradient(to right, #4facfe 0%, #00f2fe 100%)',
+                              backgroundClip: 'text',
+                              WebkitBackgroundClip: 'text',
+                              WebkitTextFillColor: 'transparent',
+                              fontFamily: "'Rajdhani', sans-serif",
+                              fontWeight: 600,
+                              fontSize: '1rem',
+                              letterSpacing: '0.05em',
+                              '@media (min-width: 640px)': {
+                                fontSize: '1.1rem',
+                              }
+                            }}
+                          >
+                            {letter === ' ' ? '\u00A0' : letter}
+                          </motion.span>
+                        ))}
+                      </div>
+                    </motion.div>
 
                     <motion.span 
                       className="text-xl sm:text-2xl font-light tracking-widest text-pink-400 inline-block mb-2 sm:mb-6" // Reduced mb-4 to mb-2 on mobile
                       style={{ fontFamily: "'Rajdhani', sans-serif" }}
                     >
-                      Artificial Intelligence and Data Science
                       <br></br>
                       2K25
                     </motion.span>
@@ -413,7 +478,7 @@ const HomePage = () => {
                             }}
                             style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: "0.1em" }}
                           >
-                            REGISTER NOW
+                            JOIN NOW
                           </motion.button>
                           
                           {/* Increased contrast and visibility for date section */}
