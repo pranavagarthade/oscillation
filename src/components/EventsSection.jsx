@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import coderelay from '../assets/coderelay.jpg'
 import Faqs from './Faqs';
+import coderelay2 from '..//assets/Code Relay 2.0.jpg';
+import hack from '..//assets/hackathon.jpg';
+import valo from '..//assets/valorant.jpg';
+import treasure from '..//assets/treasure hunt.jpg';
+import proj from '..//assets/project presentation.jpg';
+import bgmi from '..//assets/bgmi.jpg';
+import carrom from '..//assets/carrom.jpg';
+import codeandpray from '..//assets/Code and Pray.jpg';
+import dumbcharades from '..//assets/Dumb Charades.jpg';
+import aivisionary from '..//assets/AI Visionary.jpg';
+import ludo from '..//assets/ludo.jpg';
 <Faqs />
 const App = () => {
   // Events data with unique coordinators for each event
   const events = [
     {
       id: "hugsAndBugs",
-      title: "Hugs and Bugs",
+      title: "Code Relay 2.0",
       description: "Debug challenging code and solve complex programming puzzles in this exciting competition.",
       icon: "fas fa-bug",
-      image: "/api/placeholder/600/400",
-      registrationLink: "https://forms.google.com/your-hugs-and-bugs-form",
+      image: coderelay2,
+      registrationLink: "https://forms.gle/dsuTCD5K9r3Jt7T19",
       coordinators: [
         { 
           name: "Deep Mohite", 
@@ -26,7 +37,7 @@ const App = () => {
           email: "suyash@gmail.com" 
         },
         { 
-          name: "Siddesh Vardarhi", 
+          name: "Siddhesh Varhadi", 
           role: "Event Manager", 
           image: "/api/placeholder/150/150",
           email: "sid@gmail.com" 
@@ -38,7 +49,7 @@ const App = () => {
       title: "Hackathon",
       description: "24-hour coding marathon to build innovative solutions for real-world problems.",
       icon: "fas fa-laptop-code",
-      image: "coderelay.jpg",
+      image: hack,
       registrationLink: "https://forms.google.com/your-hackathon-form",
       coordinators: [
         { 
@@ -63,11 +74,11 @@ const App = () => {
     },
     {
       id: "chess",
-      title: "Chess Tournament",
+      title: "Valorant",
       description: "Strategic battle of minds in this classic game of chess.",
       icon: "fas fa-chess",
-      image: "/api/placeholder/600/400",
-      registrationLink: "https://forms.google.com/your-chess-form",
+      image: valo,
+      registrationLink: "https://forms.gle/neyAbdGGuNa7BKHg8",
       coordinators: [
         { 
           name: "Vishal Kumar", 
@@ -95,8 +106,8 @@ const App = () => {
       title: "Treasure Hunt",
       description: "Follow the clues and solve riddles in this tech-themed treasure hunt.",
       icon: "fas fa-map-marked-alt",
-      image: "/api/placeholder/600/400",
-      registrationLink: "https://forms.google.com/your-treasure-hunt-form",
+      image: treasure,
+      registrationLink: " https://forms.gle/VRF3mgaMZWJrwhHV6",
       coordinators: [
         { 
           name: "Rohit Verma", 
@@ -123,8 +134,8 @@ const App = () => {
       title: "Project Presentation",
       description: "Showcase your innovative projects and get feedback from industry experts.",
       icon: "fas fa-project-diagram",
-      image: "/api/placeholder/600/400",
-      registrationLink: "https://forms.google.com/your-project-presentation-form",
+      image: proj,
+      registrationLink: "https://forms.gle/rvRVM6ms1QtwZZFy5",
       coordinators: [
         { 
           name: "Vikram Malhotra", 
@@ -148,11 +159,11 @@ const App = () => {
     },
     {
       id: "webDevContest",
-      title: "Web Dev Contest",
+      title: "BGMI",
       description: "Create stunning websites with modern technologies in this development challenge.",
       icon: "fas fa-code",
-      image: "/api/placeholder/600/400",
-      registrationLink: "https://forms.google.com/your-webdev-form",
+      image: bgmi,
+      registrationLink: "https://forms.gle/jLp2Z7BC4fPhYddy9",
       coordinators: [
         { 
           name: "Aarav Choudhury", 
@@ -176,10 +187,10 @@ const App = () => {
     },
     {
       id: "botBattle",
-      title: "Bot Battle",
+      title: "Carrom Clash",
       description: "Design and code your own bot to compete in various challenges and games.",
       icon: "fas fa-robot",
-      image: "/api/placeholder/600/400",
+      image: carrom,
       registrationLink: "https://forms.google.com/your-botbattle-form",
       coordinators: [
         { 
@@ -204,10 +215,94 @@ const App = () => {
     },
     {
       id: "quizNight",
-      title: "Tech Quiz Night",
+      title: "Code and Pray",
       description: "Test your knowledge of technology, programming, and computer science history.",
       icon: "fas fa-question-circle",
-      image: "/api/placeholder/600/400",
+      image: codeandpray,
+      registrationLink: "https://forms.google.com/your-quiz-form",
+      coordinators: [
+        { 
+          name: "Aryan Saxena", 
+          role: "Quiz Master", 
+          image: "/api/placeholder/150/150",
+          email: "aryan@gmail.com"
+        },
+        { 
+          name: "Tanvi Agarwal", 
+          role: "Question Designer", 
+          image: "/api/placeholder/150/150",
+          email: "tanvi@gmail.com" 
+        },
+        { 
+          name: "Kunal Chawla", 
+          role: "Event Manager", 
+          image: "/api/placeholder/150/150",
+          email: "kunal@gmail.com" 
+        }
+      ]
+    },
+    {
+      id: "quizNight",
+      title: "Dumb Charades",
+      description: "Test your knowledge of technology, programming, and computer science history.",
+      icon: "fas fa-question-circle",
+      image: dumbcharades,
+      registrationLink: "https://forms.google.com/your-quiz-form",
+      coordinators: [
+        { 
+          name: "Aryan Saxena", 
+          role: "Quiz Master", 
+          image: "/api/placeholder/150/150",
+          email: "aryan@gmail.com"
+        },
+        { 
+          name: "Tanvi Agarwal", 
+          role: "Question Designer", 
+          image: "/api/placeholder/150/150",
+          email: "tanvi@gmail.com" 
+        },
+        { 
+          name: "Kunal Chawla", 
+          role: "Event Manager", 
+          image: "/api/placeholder/150/150",
+          email: "kunal@gmail.com" 
+        }
+      ]
+    },
+    {
+      id: "quizNight",
+      title: "AI Visionary",
+      description: "Test your knowledge of technology, programming, and computer science history.",
+      icon: "fas fa-question-circle",
+      image: aivisionary,
+      registrationLink: "https://forms.gle/kscpDreUV9N8EK4cA",
+      coordinators: [
+        { 
+          name: "Aryan Saxena", 
+          role: "Quiz Master", 
+          image: "/api/placeholder/150/150",
+          email: "aryan@gmail.com"
+        },
+        { 
+          name: "Tanvi Agarwal", 
+          role: "Question Designer", 
+          image: "/api/placeholder/150/150",
+          email: "tanvi@gmail.com" 
+        },
+        { 
+          name: "Kunal Chawla", 
+          role: "Event Manager", 
+          image: "/api/placeholder/150/150",
+          email: "kunal@gmail.com" 
+        }
+      ]
+    },
+    {
+      id: "quizNight",
+      title: "Ludo",
+      description: "Test your knowledge of technology, programming, and computer science history.",
+      icon: "fas fa-question-circle",
+      image: ludo,
       registrationLink: "https://forms.google.com/your-quiz-form",
       coordinators: [
         { 
