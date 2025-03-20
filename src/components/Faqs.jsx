@@ -49,7 +49,7 @@ export default function Faqs() {
       icon: <HelpCircle className="w-6 h-6" />,
     },
     {
-      question: "Who Can Participate?",
+      question: "W?",
       answer: "Oscillation welcomes participants of all skill levels, from beginners to experts. Students, professionals, and tech enthusiasts 18 years and older are eligible to participate.",
       icon: <Users className="w-6 h-6" />,
     },
